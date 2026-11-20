@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kinesis — Immersive 3D Web Studio</title>
+<meta name="description" content="Kinesis designs and builds immersive, 3D-powered websites: real-time WebGL, scroll-driven storytelling and fast, responsive front-end. Concept / demo project.">
+<meta name="theme-color" content="#05060d">
+<meta property="og:title" content="Kinesis — Immersive 3D Web Studio">
+<meta property="og:description" content="Websites that move people. Real-time 3D, scroll-driven storytelling, custom code.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='11' fill='%2305060d'/><path d='M12 10v20M12 20l12-10M15 18l10 12' stroke='%237c5cff' stroke-width='3.4' stroke-linecap='round' fill='none'/><circle cx='29' cy='29' r='2.6' fill='%233de0ff'/></svg>">
+<link rel="stylesheet" href="assets/style.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+
+<!-- Loader -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-mark">
+    <svg viewBox="0 0 40 40" width="56" height="56"><path d="M12 10v20M12 20l12-10M15 18l10 12" stroke="url(#lg)" stroke-width="2.6" stroke-linecap="round" fill="none"/><circle cx="29" cy="29" r="2.2" fill="#3de0ff"/><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#3de0ff"/></linearGradient></defs></svg>
+  </div>
+  <div class="loader-word">KINESIS</div>
+  <div class="loader-bar"><span id="loaderBar"></span></div>
+  <div class="loader-pct mono"><span id="loaderPct">0</span>% · warming up the engines</div>
+</div>
+
+<canvas id="scene" aria-hidden="true"></canvas>
+<div class="scrim" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div id="labels" class="labels" aria-hidden="true"></div>
+
+<!-- Header -->
+<header class="header">
+  <a class="logo" href="#top" data-goto="0" aria-label="Kinesis — home">
+    <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true"><path d="M12 10v20M12 20l12-10M15 18l10 12" stroke="url(#lg2)" stroke-width="3" stroke-linecap="round" fill="none"/><circle cx="29" cy="29" r="2.4" fill="#3de0ff"/><defs><linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#3de0ff"/></linearGradient></defs></svg>
+    <span>KINESIS</span>
+  </a>
+  <nav class="nav" aria-label="Main">
+    <a href="#services" data-goto="0.39">Services</a>
+    <a href="#work" data-goto="0.60">Work</a>
+    <a href="#process" data-goto="0.795">Process</a>
+    <a href="#packages">Packages</a>
+  </nav>
+  <a class="btn btn-small magnetic" href="#contact"><span>Start a project</span></a>
+</header>
+
+<!-- Fixed HUD -->
+<div class="hud" aria-hidden="true">
+  <div class="hud-hint" id="hint"><span class="mouse"><i></i></span><span class="mono">Scroll to fly</span></div>
+  <div class="hud-read mono" id="readout">X 0.0 · Y 0.0 · Z 0.0</div>
+</div>
+<nav class="rail" id="rail" aria-label="Chapters"></nav>
+
+<!-- Flight chapters (fixed overlay, driven by scroll progress) -->
+<div class="chapters" id="top">
+  <section class="chapter chapter-hero" data-from="-1" data-to="0.09" data-name="Intro">
+    <span class="eyebrow mono scramble">Immersive web studio · est. 2026</span>
+    <h1>We build websites<br>that <em>move</em> people.</h1>
+    <p class="lead">Kinesis designs and engineers interactive, 3D-powered websites that turn a scroll into a story — and visitors into clients.</p>
+    <div class="actions">
+      <a class="btn magnetic" href="#contact"><span>Start a project</span></a>
+      <button class="btn btn-ghost magnetic" type="button" data-goto="0.2"><span>Take the flight ↓</span></button>
+    </div>
+    <ul class="chips mono"><li>Real-time 3D</li><li>Scroll-driven</li><li>Mobile-ready</li></ul>
+  </section>
+
+  <section class="chapter" data-from="0.12" data-to="0.28" data-name="Design" id="design">
+    <span class="eyebrow mono scramble">01 — Design</span>
+    <h2>Every pixel<br>has a <em>purpose</em>.</h2>
+    <p>We start with your goals, not a template. Strategy, wireframes and motion design come together into an interface people remember — and actually use.</p>
+    <ul class="chips mono"><li>Brand-first UI</li><li>Motion design</li><li>Design systems</li></ul>
+  </section>
+
+  <section class="chapter chapter-right" data-from="0.31" data-to="0.47" data-name="Services" id="services">
+    <span class="eyebrow mono scramble">02 — Services</span>
+    <h2>What we <em>build</em>.</h2>
+    <ol class="list">
+      <li><b>Marketing websites</b><span>Landing pages and multi-page sites that load fast and convert.</span></li>
+      <li><b>3D &amp; WebGL</b><span>Product configurators, scroll stories, interactive scenes.</span></li>
+      <li><b>E-commerce</b><span>Custom storefronts, carts and checkout flows.</span></li>
+      <li><b>Web apps</b><span>Dashboards, booking systems and client portals.</span></li>
+    </ol>
+  </section>
+
+  <section class="chapter" data-from="0.51" data-to="0.70" data-name="Work" id="work">
+    <span class="eyebrow mono scramble">03 — Selected work</span>
+    <h2>Worlds we've<br><em>shipped</em>.</h2>
+    <p>Six concept projects across coffee, home services and healthcare. <span class="only-fine">Click</span><span class="only-coarse">Tap</span> any floating screen to open the live demo.</p>
+    <a class="link-arrow" href="#projects">Or browse them as a grid ↓</a>
+  </section>
+
+  <section class="chapter chapter-right" data-from="0.73" data-to="0.87" data-name="Process" id="process">
+    <span class="eyebrow mono scramble">04 — Process</span>
+    <h2>Idea to launch<br>in <em>weeks</em>.</h2>
+    <ol class="steps mono">
+      <li><span>01</span>Discover<i>Goals, audience, scope</i></li>
+      <li><span>02</span>Design<i>Wireframes, look &amp; motion</i></li>
+      <li><span>03</span>Build<i>Clean code, real-device QA</i></li>
+      <li><span>04</span>Launch<i>Deploy, analytics, support</i></li>
+    </ol>
+  </section>
+
+  <section class="chapter chapter-final" data-from="0.91" data-to="2" data-name="Launch" data-last>
+    <span class="eyebrow mono scramble">05 — Your turn</span>
+    <h2>Let's build something<br><em>unforgettable</em>.</h2>
+    <div class="actions">
+      <a class="btn magnetic" href="#contact"><span>Start a project</span></a>
+      <a class="btn btn-ghost magnetic" href="#packages"><span>See packages ↓</span></a>
+    </div>
+  </section>
+</div>
+
+<!-- Scroll length for the camera flight -->
+<div class="flight" id="flight" aria-hidden="true"></div>
+
+<!-- Regular content after the flight -->
+<main class="content">
+
+  <section class="block" id="projects">
+    <div class="block-head">
+      <span class="eyebrow mono">Portfolio</span>
+      <h2>Live demo projects</h2>
+      <p>Every project below is a working website — open it, click around, resize the window.</p>
+    </div>
+    <div class="grid" id="projectGrid"></div>
+  </section>
+
+  <section class="marquee" aria-label="Technologies">
+    <div class="marquee-track mono">
+      <span>Three.js</span><i>✦</i><span>WebGL</span><i>✦</i><span>GLSL shaders</span><i>✦</i><span>Scroll storytelling</span><i>✦</i><span>Responsive UI</span><i>✦</i><span>Core Web Vitals</span><i>✦</i><span>SEO-ready markup</span><i>✦</i><span>Accessibility</span><i>✦</i>
+      <span>Three.js</span><i>✦</i><span>WebGL</span><i>✦</i><span>GLSL shaders</span><i>✦</i><span>Scroll storytelling</span><i>✦</i><span>Responsive UI</span><i>✦</i><span>Core Web Vitals</span><i>✦</i><span>SEO-ready markup</span><i>✦</i><span>Accessibility</span><i>✦</i>
+    </div>
+  </section>
+
+  <section class="block" id="packages">
+    <div class="block-head">
+      <span class="eyebrow mono">Packages</span>
+      <h2>Pick your launch pad</h2>
+      <p>Fixed scope, fixed price, no surprises. Every package is hand-coded and fully responsive.</p>
+    </div>
+    <div class="plans">
+      <article class="plan tilt">
+        <span class="plan-tag mono">Basic</span>
+        <h3>Launch</h3>
+        <div class="price">$450</div>
+        <p>One-page landing site that gets you online fast.</p>
+        <ul><li>Up to 6 sections</li><li>Contact or booking form</li><li>Scroll animations</li><li>Delivery in ~1 week</li></ul>
+        <a class="btn btn-ghost" href="#contact" data-plan="Launch"><span>Choose Launch</span></a>
+      </article>
+      <article class="plan tilt">
+        <span class="plan-tag mono">Standard</span>
+        <h3>Growth</h3>
+        <div class="price">$1,200</div>
+        <p>Multi-page business site built to rank and convert.</p>
+        <ul><li>Up to 6 pages</li><li>Catalog, blog or gallery</li><li>SEO-ready structure</li><li>Delivery in ~2–3 weeks</li></ul>
+        <a class="btn btn-ghost" href="#contact" data-plan="Growth"><span>Choose Growth</span></a>
+      </article>
+      <article class="plan tilt">
+        <span class="plan-tag mono">Premium</span>
+        <h3>Signature</h3>
+        <div class="price">$2,500</div>
+        <p>Feature-rich site with booking, store or calculators.</p>
+        <ul><li>Custom interactive features</li><li>Cart, booking or estimator</li><li>Dark / light theme</li><li>Delivery in ~3–4 weeks</li></ul>
+        <a class="btn btn-ghost" href="#contact" data-plan="Signature"><span>Choose Signature</span></a>
+      </article>
+      <article class="plan plan-hot tilt">
+        <span class="plan-tag mono">Immersive</span>
+        <h3>Kinetic 3D</h3>
+        <div class="price"><small>from</small> $4,000</div>
+        <p>A site like this one: real-time 3D and scroll storytelling.</p>
+        <ul><li>Custom WebGL scene</li><li>Shaders &amp; post-processing</li><li>Optimized for phones</li><li>Delivery in ~4–6 weeks</li></ul>
+        <a class="btn" href="#contact" data-plan="Kinetic 3D"><span>Choose Kinetic 3D</span></a>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="contact">
+    <div class="contact">
+      <div class="contact-copy">
+        <span class="eyebrow mono">Contact</span>
+        <h2>Tell us about<br>your <em>project</em>.</h2>
+        <p>Share a few details and get a plan with timeline and fixed price within one business day.</p>
+        <ul class="contact-facts mono">
+          <li><span>Reply time</span>&lt; 24h</li>
+          <li><span>Time zone</span>Works with US hours</li>
+          <li><span>Stack</span>HTML · CSS · JS · Three.js</li>
+        </ul>
+      </div>
+      <form class="form" id="contactForm" novalidate>
+        <div class="row">
+          <label>Name<input name="name" autocomplete="name" required placeholder="Jane Cooper"></label>
+          <label>Email<input name="email" type="email" autocomplete="email" required placeholder="jane@company.com"></label>
+        </div>
+        <label>Package
+          <select name="plan" id="planSelect">
+            <option>Not sure yet</option><option>Launch</option><option>Growth</option><option>Signature</option><option>Kinetic 3D</option>
+          </select>
+        </label>
+        <fieldset class="budget">
+          <legend>Budget</legend>
+          <label><input type="radio" name="budget" value="&lt;$1k" checked><span>&lt; $1k</span></label>
+          <label><input type="radio" name="budget" value="$1–3k"><span>$1–3k</span></label>
+          <label><input type="radio" name="budget" value="$3–6k"><span>$3–6k</span></label>
+          <label><input type="radio" name="budget" value="$6k+"><span>$6k+</span></label>
+        </fieldset>
+        <label>Project details<textarea name="message" rows="4" required placeholder="What are you building, and when do you need it?"></textarea></label>
+        <button class="btn btn-full magnetic" type="submit"><span>Send request</span></button>
+        <p class="form-note mono" id="formNote" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-big">KINESIS</div>
+    <div class="footer-row mono">
+      <span>© 2026 Kinesis Studio</span>
+      <span>Concept / demo project — Kinesis is a fictional brand. No messages are sent.</span>
+      <a href="#top" data-goto="0">Back to the start ↑</a>
+    </div>
+  </footer>
+</main>
+
+<div class="cursor" id="cursor" aria-hidden="true"><div class="cursor-dot"></div><div class="cursor-ring"><span id="cursorText"></span></div></div>
+
+<script type="module" src="assets/main.js"></script>
+</body>
+</html>
